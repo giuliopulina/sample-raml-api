@@ -4,6 +4,13 @@ protocols: HTTPS
 version: v1
 baseUri: https://example.com/api/{version}
 mediaType: application/json
+securitySchemes:
+  oauth1:
+    type: OAuth 1.0
+    settings:
+      requestTokenUri: https://example.com/oauth1/request_token
+      authorizationUri: https://example.com/oauth1/authorize
+      tokenCredentialsUri: https://example.com/oauth1/access_token
 
 types:
   Error:
@@ -48,6 +55,7 @@ resourceTypes:
             type: Error
 
 /users:
+  securedBy: oauth1
   get:
     description: Get all users.
     responses:
