@@ -13,46 +13,17 @@ securitySchemes:
       tokenCredentialsUri: https://example.com/oauth1/access_token
 
 types:
-  Error:
-    properties:
-      code: integer
-      message: string
-  Gender:
-    type: string
-    enum: [ male, female ]
-  UserBase:
-    properties:
-      name: string
-      gender?: Gender
-  User:
-    properties:
-      id: integer
-      name: string
-      gender?: Gender
-    example:
-      {
-        "id": 42,
-        "name": "John Doe",
-        "gender": "male"
-      }
+  Error: !include types/error.raml
+  Gender: !include types/gender.raml
+  UserBase: !include types/userBase.raml
+  User: !include types/user.raml
   Users: User[]
 
 traits:
-  BadRequest:
-    responses:
-      400:
-        description: Required properties missing or validation issues.
-        body:
-          type: Error
+  BadRequest: !include ./badRequest.raml
 
 resourceTypes:
-  NotFound:
-    put:
-      responses:
-        404:
-          description: Unkown <<resourcePathName>>.
-          body:
-            type: Error
+  NotFound: !include ./notFound.raml
 
 /users:
   securedBy: oauth1
