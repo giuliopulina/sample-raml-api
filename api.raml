@@ -30,6 +30,23 @@ types:
       }
   Users: User[]
 
+traits:
+  BadRequest:
+    responses:
+      400:
+        description: Required properties missing or validation issues.
+        body:
+          type: Error
+
+resourceTypes:
+  NotFound:
+    put:
+      responses:
+        404:
+          description: Unkown <<resourcePathName>>.
+          body:
+            type: Error
+
 /users:
   get:
     description: Get all users.
@@ -39,20 +56,19 @@ types:
           type: Users
   post:
     description: Create new Kicker player.
+    is: BadRequest
     body:
       type: UserBase
     responses:
       201:
         description: New user created successful.
-      400:
-        description: Required properties missing or validation issues.
-        body:
-          type: Error
   /{userId}:
+    type: NotFound
     uriParameters:
       userId: integer
     put:
       description: Update user.
+      is: BadRequest
       body:
         type: UserBase
       responses:
@@ -60,11 +76,3 @@ types:
           description: User updated successful.
           body:
             type: User
-        400:
-          description: Required properties missing or validation issues.
-          body:
-            type: Error
-        404:
-          description: Unkown user.
-          body:
-            type: Error
