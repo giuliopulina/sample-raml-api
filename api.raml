@@ -4,3 +4,26 @@ protocols: HTTPS
 version: v1
 baseUri: https://example.com/api/{version}
 mediaType: application/json
+
+/users:
+  get:
+    description: Get all users.
+    responses:
+      200:
+        body:
+          type: array
+          items:
+            type: object
+            properties:
+              id: integer
+              name: string
+              gender:
+                type: string
+                enum: [ male, female ]
+                required: false
+            example:
+              {
+                "id": 42,
+                "name": "John Doe",
+                "gender": "male"
+              }
