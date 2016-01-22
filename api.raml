@@ -10,23 +10,17 @@ types:
     type: string
     enum: [ male, female ]
   User:
-    type: object
     properties:
       id: integer
       name: string
-      gender:
-        type: Gender
-        required: false
+      gender?: Gender
     example:
       {
         "id": 42,
         "name": "John Doe",
         "gender": "male"
       }
-  Users:
-    type: array
-    items:
-      type: User
+  Users: User[]
 
 /users:
   get:
