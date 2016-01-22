@@ -48,3 +48,23 @@ types:
         description: Required properties missing or validation issues.
         body:
           type: Error
+  /{userId}:
+    uriParameters:
+      userId: integer
+    put:
+      description: Update user.
+      body:
+        type: UserBase
+      responses:
+        200:
+          description: User updated successful.
+          body:
+            type: User
+        400:
+          description: Required properties missing or validation issues.
+          body:
+            type: Error
+        404:
+          description: Unkown user.
+          body:
+            type: Error
